@@ -1,0 +1,24 @@
+ 
+# Build directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.sln.docstates
+
+# Visual Studio Code settings
+.vscode/
+.vs/
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Other files to ignore
+*.DS_Store
+Thumbs.db

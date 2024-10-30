@@ -8,10 +8,10 @@ using TextilesGeomar.API.Data;
 
 #nullable disable
 
-namespace TextilesGeomar.API.Migrations
+namespace TextilesGeomar.API.Data.Migrations
 {
     [DbContext(typeof(TextilesGeomarDBContext))]
-    partial class TextilesGeomarContextModelSnapshot : ModelSnapshot
+    partial class TextilesGeomarDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

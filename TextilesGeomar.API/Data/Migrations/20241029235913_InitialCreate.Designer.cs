@@ -9,11 +9,11 @@ using TextilesGeomar.API.Data;
 
 #nullable disable
 
-namespace TextilesGeomar.API.Migrations
+namespace TextilesGeomar.API.Data.Migrations
 {
     [DbContext(typeof(TextilesGeomarDBContext))]
-    [Migration("20241029203514_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20241029235913_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

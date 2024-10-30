@@ -59,8 +59,16 @@ To add the first migration and update the database (second command is used if mi
 
 ```powershell
 Add-Migration FirstMigration
-Or
+
+
+Or:
+
+
 dotnet ef migrations add InitialCreate --output-dir Data/Migrations
+
+
+and then:
+
 Update-Database
 ```
 

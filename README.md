@@ -55,10 +55,12 @@ Install the following NuGet packages in your project:
 
 ### 9. Add Migrations
 
-To add the first migration and update the database:
+To add the first migration and update the database (second command is used if migrations folder structure changes):
 
 ```powershell
 Add-Migration FirstMigration
+Or
+dotnet ef migrations add InitialCreate --output-dir Data/Migrations
 Update-Database
 ```
 

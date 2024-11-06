@@ -16,8 +16,7 @@ Execute the following commands in your terminal (for Linux containers):
 ```bash
 docker pull mcr.microsoft.com/mssql/server:2022-latest
 
-docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=DBPassword' \
--p 1433:1433 --name textilesgeomar-db -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Textiles2024" -p 1433:1433 --name textilesgeomar-db -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
 ### 3. Create Database Tables and Relationships

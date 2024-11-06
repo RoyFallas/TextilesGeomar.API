@@ -41,7 +41,7 @@ Install the following NuGet packages in your project:
 3. Run the following command to update the project and create models based on the existing database tables (make sure to replace `DBPassword` with the correct password):
 
    ```powershell
-   Scaffold-DbContext "Server=localhost; Database=textilesGeomar; User Id=sa; Password=DBPassword; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+   Scaffold-DbContext "Server=localhost; Database=textilesGeomar; User Id=sa; Password=Textiles2024; TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
    ```
 
 ### 7. Rename the DbContext

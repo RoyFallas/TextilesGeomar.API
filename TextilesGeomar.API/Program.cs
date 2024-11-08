@@ -8,6 +8,7 @@ using TextilesGeomar.API.Repositories.Interfaces;
 using TextilesGeomar.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using TextilesGeomar.API.Data;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,11 @@ builder.Services.AddDbContext<TextilesGeomarDBContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IMapper<User, UserDTO>, UserMapper>();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Listen(IPAddress.Any, 80); // Listen on HTTP in the container
+});
 
 var app = builder.Build();
 

@@ -33,7 +33,8 @@ public partial class TextilesGeomarDBContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=localhost; Database=textilesGeomar; User Id=sa; Password=Textiles2024; TrustServerCertificate=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=textilesgeomar-db; Database=textilesGeomar; User Id=sa; Password=Textiles2024; TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,6 +43,8 @@ public partial class TextilesGeomarDBContext : DbContext
             entity.HasKey(e => e.ClientId).HasName("PK__Client__E67E1A24DE246E20");
 
             entity.ToTable("Client");
+
+            entity.HasIndex(e => e.InstitutionId, "IX_Client_InstitutionId");
 
             entity.HasIndex(e => e.Email, "UQ__Client__A9D10534E2786F85").IsUnique();
 
@@ -72,6 +75,12 @@ public partial class TextilesGeomarDBContext : DbContext
             entity.HasKey(e => e.ItemId).HasName("PK__Item__727E838B8F7A9E1F");
 
             entity.ToTable("Item");
+
+            entity.HasIndex(e => e.InstitutionId, "IX_Item_InstitutionId");
+
+            entity.HasIndex(e => e.StatusId, "IX_Item_StatusId");
+
+            entity.HasIndex(e => e.UniformId, "IX_Item_UniformId");
 
             entity.Property(e => e.Color).HasMaxLength(50);
             entity.Property(e => e.Description).HasMaxLength(255);
@@ -109,6 +118,16 @@ public partial class TextilesGeomarDBContext : DbContext
             entity.HasKey(e => e.SaleId).HasName("PK__Sale__1EE3C3FFBEE5AE6A");
 
             entity.ToTable("Sale");
+
+            entity.HasIndex(e => e.ClientId, "IX_Sale_ClientId");
+
+            entity.HasIndex(e => e.InstitutionId, "IX_Sale_InstitutionId");
+
+            entity.HasIndex(e => e.ItemId, "IX_Sale_ItemId");
+
+            entity.HasIndex(e => e.StatusId, "IX_Sale_StatusId");
+
+            entity.HasIndex(e => e.UniformId, "IX_Sale_UniformId");
 
             entity.Property(e => e.CreatedDate)
                 .HasDefaultValueSql("(getdate())")
@@ -153,6 +172,10 @@ public partial class TextilesGeomarDBContext : DbContext
 
             entity.ToTable("Uniform");
 
+            entity.HasIndex(e => e.InstitutionId, "IX_Uniform_InstitutionId");
+
+            entity.HasIndex(e => e.StatusId, "IX_Uniform_StatusId");
+
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
@@ -171,6 +194,8 @@ public partial class TextilesGeomarDBContext : DbContext
             entity.HasKey(e => e.UserId).HasName("PK__User__1788CC4CEC168045");
 
             entity.ToTable("User");
+
+            entity.HasIndex(e => e.RoleId, "IX_User_RoleId");
 
             entity.HasIndex(e => e.Email, "UQ__User__A9D10534567DD2A7").IsUnique();
 

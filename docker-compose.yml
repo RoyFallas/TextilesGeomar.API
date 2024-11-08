@@ -13,11 +13,13 @@ services:
     restart: always   # Ensures the container restarts if it crashes
     networks:
       - textiles_network  # Add the service to a custom network
+    volumes:
+      - db-data:/var/opt/mssql  # Persist SQL Server data
 
   # .NET API container
   api:
     build:
-      context: .
+      context: . 
       dockerfile: Dockerfile   # Specifies the Dockerfile in the current directory
     ports:
       - "8080:80"  # Exposes internal port 80 to external port 8080
@@ -34,3 +36,6 @@ services:
 networks:
   textiles_network:
     driver: bridge
+
+volumes:
+  db-data:  # Define the volume to persist the database data

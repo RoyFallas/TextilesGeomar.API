@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # SQL Server container
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Textiles2024
+    ports:
+      - "1433:1433"   # Expose SQL Server on port 1433
+    container_name: textilesgeomar-db
+    restart: always   # Ensures the container restarts if it crashes
+    networks:
+      - textiles_network  # Add the service to a custom network
+
+  # .NET API container
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile   # Specifies the Dockerfile in the current directory
+    ports:
+      - "8080:80"  # Exposes internal port 80 to external port 8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=textilesgeomar-db;Database=YourDatabase;User Id=sa;Password=Textiles2024;
+    depends_on:
+      - db   # Ensure the database container starts first
+    networks:
+      - textiles_network  # Add the service to the same network as SQL Server
+
+networks:
+  textiles_network:
+    driver: bridge

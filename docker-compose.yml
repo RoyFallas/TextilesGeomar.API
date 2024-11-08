@@ -28,6 +28,8 @@ services:
       - db   # Ensure the database container starts first
     networks:
       - textiles_network  # Add the service to the same network as SQL Server
+    volumes:
+      - ./testresults:/src/testresults # Maps container test results to host directory
 
 networks:
   textiles_network:

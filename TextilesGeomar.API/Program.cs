@@ -19,9 +19,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register your DbContext
+// Register your DbContext with the connection string from appsettings.json
 builder.Services.AddDbContext<TextilesGeomarDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TextilesGeomar")));
 
 // Register your UserService for dependency injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();

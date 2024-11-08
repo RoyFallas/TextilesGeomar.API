@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: textilesgeomar-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: textilesgeomar-db
+  template:
+    metadata:
+      labels:
+        app: textilesgeomar-db
+    spec:
+      containers:
+      - name: textilesgeomar-db
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: "Textiles2024"
+        volumeMounts:
+        - mountPath: /var/opt/mssql
+          name: db-data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: db-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: textilesgeomar-db
+spec:
+  type: NodePort          # Change this line from ClusterIP to NodePort
+  ports:
+    - port: 1433          # Port used by SQL Server
+      targetPort: 1433
+      nodePort: 31433     # Optional: You can specify a custom node port here (must be within the range allowed by your cluster)
+  selector:
+    app: textilesgeomar-db

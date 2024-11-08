@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: textilesgeomar-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: textilesgeomar-api
+  template:
+    metadata:
+      labels:
+        app: textilesgeomar-api
+    spec:
+      containers:
+      - name: textilesgeomar-api
+        image: royf988/textilesgeomar-api:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=textilesgeomar-db;Database=YourDatabase;User Id=sa;Password=Textiles2024;"
+        volumeMounts:
+        - mountPath: /src/testresults
+          name: test-results
+      volumes:
+      - name: test-results
+        emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: textilesgeomar-api
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 8080        # Exposed port to access the API
+    targetPort: 80    # Target port in the container where the app is listening
+  selector:
+    app: textilesgeomar-api
+
